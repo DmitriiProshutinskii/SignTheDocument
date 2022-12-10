@@ -2,6 +2,7 @@ import 'dart:ui';
 
 abstract class SberColors {
   static const Color primaryWhite = Color(0xFFFFFFFF);
+  static const Color snowSber = Color(0xFFF5F8FF);
   static const Color primaryBlack = Color(0xFF000000);
   static const Color primaryGaphitSber = Color(0xFF333F48);
 

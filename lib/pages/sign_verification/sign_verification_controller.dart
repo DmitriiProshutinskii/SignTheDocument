@@ -21,7 +21,8 @@ class SignVerificationController extends G.GetxController {
   bool get isSendButtonEnable => _isSendButtonEnale;
 
   bool? isVerifided;
-  SberResponse response = SberResponse();
+  SberResponse _response = SberResponse();
+  SberResponse get response => _response;
 
   final FileType _pickingType = FileType.any;
 
@@ -97,7 +98,7 @@ class SignVerificationController extends G.GetxController {
         log((res != null).toString());
         if (res != null) {
           isVerifided = res.success;
-          response = res;
+          _response = res;
           update();
         }
       } catch (e) {
@@ -109,6 +110,4 @@ class SignVerificationController extends G.GetxController {
   void _logException(String message) {
     log(message);
   }
-
-  SberResponse get mockResponse => response;
 }

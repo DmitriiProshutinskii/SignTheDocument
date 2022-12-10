@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sber_sign_test/components/sber_app_bar.dart';
 import 'package:sber_sign_test/pages/sign_verification/sign_verification_controller.dart';
 import 'package:sber_sign_test/pages/sign_verification/widgets/sign_verification_block.dart';
 
 import 'package:get/get.dart';
 import 'package:sber_sign_test/pages/sign_verification/widgets/sign_verification_fail.dart';
 import 'package:sber_sign_test/pages/sign_verification/widgets/sign_verification_success.dart';
+import 'package:sber_sign_test/styles/colors.dart';
 
 class SignVerificationPage extends GetView<SignVerificationController> {
   const SignVerificationPage({super.key});
@@ -12,9 +14,8 @@ class SignVerificationPage extends GetView<SignVerificationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Онлайн подпись Сбер'),
-      ),
+      backgroundColor: SberColors.snowSber,
+      appBar: const SberAppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -23,12 +24,12 @@ class SignVerificationPage extends GetView<SignVerificationController> {
               builder: (SignVerificationController controller) {
                 if (controller.isVerifided ?? false) {
                   return SignVerificationSuccess(
-                    response: controller.mockResponse,
+                    response: controller.response,
                   );
                 }
                 if (!(controller.isVerifided ?? true)) {
                   return SignVerificationFail(
-                    response: controller.mockResponse,
+                    response: controller.response,
                   );
                 }
                 return SignVerificationBlock(
