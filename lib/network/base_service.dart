@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:sber_sign_test/configs/app_config.dart';
 import 'package:sber_sign_test/network/request_error.dart';
 import 'package:sber_sign_test/network/snack_bar_state.dart';
+import 'package:sber_sign_test/tools/extentions.dart';
 
 class BaseService {
   Dio createDio({
@@ -30,46 +31,41 @@ class BaseService {
 
           log('${error.response?.statusCode}  ${error.response?.statusMessage} ${error.response?.data}');
 
-          if (statusCode != null && statusCode >= 400) {
+          if (statusCode != null && statusCode == 500) {
+            await logError(
+              error,
+              'Error: $statusCode',
+              'Iternal Server Error',
+            );
+          } else if (statusCode != null && statusCode >= 400) {
             try {
               final Map root = error.response?.data;
-              final List t = root['errors'];
-
-              final List<ErrorMessage> errMessages =
-                  t.map((item) => ErrorMessage.fromJson(item)).toList();
+              final List t = root['detail'];
+              final List<Detail> errMessages =
+                  t.map((item) => Detail.fromJson(item)).toList();
               var message = '';
               for (var i = 0; i < errMessages.length; i++) {
-                final path = errMessages[i].path.contains('\$.')
-                    ? errMessages[i].path.replaceFirst('\$.', '')
-                    : errMessages[i].path;
-                final path_ = path.length > 1
-                    ? "${path[0].toUpperCase()}${path.substring(1).toLowerCase()}"
-                    : path;
-
-                final messg = errMessages[i].message.length > 1
-                    ? "${errMessages[i].message[0].toUpperCase()}${errMessages[i].message.substring(1).toLowerCase()}"
-                    : errMessages[i].message;
-                if (path_.isNotEmpty) {
-                  message += '$path_: ';
-                }
-
+                final messg = errMessages[i].msg!.length > 1
+                    ? errMessages[i].msg?.capitalize()
+                    : errMessages[i].msg;
                 message += '$messg \n';
               }
 
               await logError(
                 error,
+                'Error: $statusCode',
                 message,
               );
             } catch (e) {
-              await logError(e,
+              await logError(e, 'Error: $statusCode',
                   "${error.response?.statusCode}: ${error.response?.statusMessage}");
             }
           } else {
             if (error.response == null) {
-              await logError(error,
+              await logError(error, 'Connection error',
                   'Failed to connect to the server. Please check your internet connection and try again');
             } else {
-              await logError(error,
+              await logError(error, 'Error: $statusCode',
                   '${error.response?.statusCode}: ${error.response?.statusMessage}');
             }
           }
@@ -81,11 +77,11 @@ class BaseService {
     return dio;
   }
 
-  Future<void> logError(Object e, String message) async {
+  Future<void> logError(Object e, String title, String message) async {
     log(message);
 
     SnackBarState.hideCurrentSnackBar();
-    SnackBarState.showErrorSnackbar(message);
+    SnackBarState.showErrorSnackbar(title, message);
   }
 
   Future<Response> uploadFile(String path, PlatformFile file, PlatformFile sign,

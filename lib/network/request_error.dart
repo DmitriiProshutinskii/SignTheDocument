@@ -1,19 +1,21 @@
-class ErrorMessage {
-  String message = '';
-  String messageTemplate = '';
-  String path = '';
-  String invalidValue = '';
+class Detail {
+  List<String>? loc;
+  String? msg;
+  String? type;
 
-  ErrorMessage(
-      {this.message = '',
-      this.messageTemplate = '',
-      this.path = '',
-      this.invalidValue = ''});
+  Detail({this.loc, this.msg, this.type});
 
-  ErrorMessage.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
-    messageTemplate = json['messageTemplate'] ?? '';
-    path = json['path'] ?? '';
-    invalidValue = json['invalidValue'] ?? '';
+  Detail.fromJson(Map<String, dynamic> json) {
+    loc = json['loc'].cast<String>();
+    msg = json['msg'];
+    type = json['type'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['loc'] = loc;
+    data['msg'] = msg;
+    data['type'] = type;
+    return data;
   }
 }
