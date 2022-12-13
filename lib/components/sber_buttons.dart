@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sber_sign_test/components/sber_button_styles.dart';
+import 'package:sber_sign_test/components/sber_icons.dart';
 import 'package:sber_sign_test/styles/colors.dart';
 
 class _BaseButton extends StatefulWidget {
   final String text;
-  final IconData? leadingIcon;
+  final SberIcon? leadingIcon;
   final IconData? trailingIcon;
   final bool isEnabled;
   final bool addShadow;
@@ -101,13 +102,14 @@ class _BaseButtonState extends State<_BaseButton> {
                     style: widget.getStyle(),
 
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 5),
+                      padding: widget.margin ??
+                          const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           if (widget.leadingIcon != null) ...[
-                            Icon(widget.leadingIcon, size: 18),
+                            widget.leadingIcon!,
                             const SizedBox(width: 8),
                           ],
                           Text(widget.text),
@@ -148,10 +150,10 @@ class SberPrimaryButtonSm extends _BaseButton {
       required String text,
       bool isEnabled = true,
       bool addShadow = false,
-      IconData? leadingIcon,
+      SberIcon? leadingIcon,
       IconData? trailingIcon,
       EdgeInsets padding = const EdgeInsets.fromLTRB(16, 8, 16, 12),
-      EdgeInsets margin = const EdgeInsets.all(0),
+      EdgeInsets? margin,
       required Future<void> Function()? onPressed})
       : super(
             key: key,
@@ -180,8 +182,8 @@ class SberSecondaryButtonSm extends _BaseButton {
       bool isEnabled = true,
       bool addShadow = false,
       EdgeInsets padding = const EdgeInsets.fromLTRB(16, 8, 16, 12),
-      EdgeInsets margin = const EdgeInsets.all(0),
-      IconData? leadingIcon,
+      EdgeInsets? margin,
+      SberIcon? leadingIcon,
       IconData? trailingIcon,
       required Future<void> Function()? onPressed})
       : super(
@@ -209,10 +211,10 @@ class SberPrimaryButtonLarge extends _BaseButton {
       required String text,
       bool isEnabled = true,
       bool addShadow = false,
-      IconData? leadingIcon,
+      SberIcon? leadingIcon,
       IconData? trailingIcon,
       EdgeInsets padding = const EdgeInsets.fromLTRB(16, 8, 16, 16),
-      EdgeInsets margin = const EdgeInsets.all(0),
+      EdgeInsets margin = const EdgeInsets.symmetric(vertical: 12),
       required Future<void> Function()? onPressed})
       : super(
             key: key,

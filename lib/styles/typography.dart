@@ -10,6 +10,7 @@ abstract class _BaseText extends StatelessWidget {
   final TextOverflow? overflow;
   final TextAlign? textAlign;
   final double? height;
+  final double? letterSpacing;
 
   const _BaseText(
     this.data, {
@@ -21,6 +22,7 @@ abstract class _BaseText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.height,
+    this.letterSpacing,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,8 @@ abstract class _BaseText extends StatelessWidget {
         color: color,
         fontSize: fontSize,
         fontWeight: fontWeight,
-        fontFamily: 'Roboto',
+        fontFamily: 'SBSansDisplay',
+        letterSpacing: letterSpacing,
       ),
       //height: height != null ? (height! / (fontSize ?? 14)) : null),
     );
@@ -84,15 +87,18 @@ class SberH3Text extends _BaseText {
     int maxLines = 1,
     Color color = SberColors.primaryBlack,
     TextAlign? textAlign,
-  }) : super(data,
-            key: key,
-            maxLines: maxLines,
-            fontSize: 24,
-            overflow: TextOverflow.ellipsis,
-            fontWeight: FontWeight.w700,
-            color: color,
-            textAlign: textAlign,
-            height: 32);
+  }) : super(
+          data,
+          key: key,
+          maxLines: maxLines,
+          fontSize: 24,
+          overflow: TextOverflow.ellipsis,
+          fontWeight: FontWeight.w600,
+          color: color,
+          textAlign: textAlign,
+          height: 32,
+          letterSpacing: 0,
+        );
 }
 
 class SberH4Text extends _BaseText {
@@ -192,15 +198,18 @@ class SberB3Text extends _BaseText {
     int maxLines = 1,
     Color color = SberColors.primaryBlack,
     TextAlign? textAlign,
-  }) : super(data,
-            key: key,
-            maxLines: maxLines,
-            fontSize: 14,
-            overflow: TextOverflow.ellipsis,
-            fontWeight: FontWeight.w400,
-            color: color,
-            textAlign: textAlign,
-            height: 24);
+  }) : super(
+          data,
+          key: key,
+          maxLines: maxLines,
+          fontSize: 14,
+          overflow: TextOverflow.ellipsis,
+          fontWeight: FontWeight.w400,
+          color: color,
+          textAlign: textAlign,
+          height: 24,
+          letterSpacing: 0.25,
+        );
 }
 
 class SberB4Text extends _BaseText {
@@ -261,14 +270,26 @@ class SberCText extends _BaseText {
 
 abstract class TextStyles {
   static const header6 = TextStyle(
-      fontFamily: 'Roboto',
-      fontSize: 14,
-      color: SberColors.primaryBlack,
-      fontWeight: FontWeight.w600);
+    fontFamily: 'SBSansDisplay',
+    fontSize: 14,
+    color: SberColors.primaryBlack,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.1,
+  );
 
   static const header5 = TextStyle(
-      fontFamily: 'Roboto',
-      fontSize: 16,
-      color: SberColors.primaryBlack,
-      fontWeight: FontWeight.w600);
+    fontFamily: 'SBSansDisplay',
+    fontSize: 16,
+    color: SberColors.primaryBlack,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.1,
+  );
+
+  static const caption1 = TextStyle(
+    fontFamily: 'SBSansDisplay',
+    fontSize: 12,
+    color: SberColors.primaryBlack,
+    fontWeight: FontWeight.w800,
+    letterSpacing: 0.1,
+  );
 }

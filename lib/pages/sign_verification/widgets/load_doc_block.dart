@@ -12,7 +12,7 @@ class LoadDocWidget extends StatelessWidget {
   final String title;
   final String description;
   final String buttonText;
-  final IconData buttonIcon;
+  final SberIcon buttonIcon;
   final SberIcon docIcon;
   final String? docTitle;
   const LoadDocWidget(
@@ -30,7 +30,7 @@ class LoadDocWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 440,
+      width: 520,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -79,7 +79,16 @@ class _SberCounterCurrent extends StatelessWidget {
         border: Border.all(color: SberColors.electricBlue4, width: 1),
         shape: BoxShape.circle,
       ),
-      child: SberCText(count.toString()),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '$count',
+            style: TextStyles.caption1,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

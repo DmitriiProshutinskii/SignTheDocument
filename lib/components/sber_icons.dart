@@ -34,3 +34,11 @@ class SberIconDocSignedOne extends SberIcon {
             color: color,
             size: size);
 }
+
+class SberIconDownloadSm extends SberIcon {
+  const SberIconDownloadSm({Color? color, double? size, super.key})
+      : super(
+            path: 'assets/svg_icons/ic_download.svg',
+            color: color,
+            size: size ?? 15);
+}

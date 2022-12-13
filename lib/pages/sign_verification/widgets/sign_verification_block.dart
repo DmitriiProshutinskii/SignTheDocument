@@ -49,7 +49,9 @@ class SignVerificationBlock extends StatelessWidget {
                   docIcon: const SberIconDocDownloaded(
                     color: SberColors.electricBlue4,
                   ),
-                  buttonIcon: Icons.download,
+                  buttonIcon: const SberIconDownloadSm(
+                    color: SberColors.electricBlue75,
+                  ),
                 ),
                 const SizedBox(height: 24),
                 LoadDocWidget(
@@ -65,14 +67,16 @@ class SignVerificationBlock extends StatelessWidget {
                   docIcon: const SberIconDocSignedOne(
                     color: SberColors.electricBlue4,
                   ),
-                  buttonIcon: Icons.download,
+                  buttonIcon: const SberIconDownloadSm(
+                    color: SberColors.electricBlue75,
+                  ),
                 ),
               ],
             ),
           ),
           const SizedBox(height: 32),
           SizedBox(
-            width: 400,
+            width: 480,
             child: SberPrimaryButtonLarge(
               padding: EdgeInsets.zero,
               isEnabled: isSendButtonEnable,
