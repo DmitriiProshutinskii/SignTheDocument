@@ -3,9 +3,12 @@ import 'dart:developer';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:get/route_manager.dart';
 import 'package:sber_sign_test/configs/app_config.dart';
+import 'package:sber_sign_test/configs/routes.dart';
 import 'package:sber_sign_test/network/request_error.dart';
 import 'package:sber_sign_test/network/snack_bar_state.dart';
+import 'package:sber_sign_test/pages/error_page/error_controller.dart';
 import 'package:sber_sign_test/tools/extentions.dart';
 
 class BaseService {
@@ -27,16 +30,13 @@ class BaseService {
     dio.interceptors.add(
       InterceptorsWrapper(
         onError: (error, handler) async {
-          final statusCode = error.response?.statusCode;
+          const statusCode = null;
+          // error.response?.statusCode;
 
           log('${error.response?.statusCode}  ${error.response?.statusMessage} ${error.response?.data}');
 
           if (statusCode != null && statusCode == 500) {
-            await logError(
-              error,
-              'Error: $statusCode',
-              'Iternal Server Error',
-            );
+            await _redirectOnError(error.response!);
           } else if (statusCode != null && statusCode >= 400) {
             try {
               final Map root = error.response?.data;
@@ -62,11 +62,9 @@ class BaseService {
             }
           } else {
             if (error.response == null) {
-              await logError(error, 'Connection error',
-                  'Failed to connect to the server. Please check your internet connection and try again');
+              await _redirectOnError();
             } else {
-              await logError(error, 'Error: $statusCode',
-                  '${error.response?.statusCode}: ${error.response?.statusMessage}');
+              await _redirectOnError(error.response);
             }
           }
           return handler.next(error);
@@ -95,4 +93,29 @@ class BaseService {
     log(response.statusCode.toString());
     return response;
   }
+
+  // Internal methods
+  Future<void> _redirectOnError([Response<dynamic>? response]) async {
+    if (response?.isFailure() ?? true) {
+      await Get.offAllNamed(Routes.error,
+          arguments: ErrorPageParam(response?.statusCode));
+    }
+  }
+}
+
+extension ResponseExtensions on Response<dynamic> {
+  bool _isSuccess() {
+    if (statusCode == null) {
+      return false;
+    }
+    var isSuccess = statusCode! >= 200 && statusCode! < 300;
+    if (!isSuccess) {
+      log("on ${requestOptions.path} response error: $statusMessage");
+    }
+    return isSuccess;
+  }
+
+  bool isSuccess() => _isSuccess();
+
+  bool isFailure() => !_isSuccess();
 }
