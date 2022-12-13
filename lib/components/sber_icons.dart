@@ -42,3 +42,11 @@ class SberIconDownloadSm extends SberIcon {
             color: color,
             size: size ?? 15);
 }
+
+class SberIconProfile extends SberIcon {
+  const SberIconProfile({Color? color, double? size, super.key})
+      : super(
+            path: 'assets/svg_icons/ic_profile.svg',
+            color: color,
+            size: size ?? 20);
+}

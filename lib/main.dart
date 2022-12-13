@@ -8,6 +8,7 @@ import 'package:sber_sign_test/pages/sign_verification/sign_verification_page.da
 void main() {
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/home',
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) => const NotFoundPage());

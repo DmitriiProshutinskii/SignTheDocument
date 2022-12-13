@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sber_sign_test/components/sber_app_bar.dart';
+import 'package:sber_sign_test/components/app_bar/sber_app_bar.dart';
 import 'package:sber_sign_test/pages/sign_verification/sign_verification_controller.dart';
 import 'package:sber_sign_test/pages/sign_verification/widgets/sign_verification_block.dart';
 
