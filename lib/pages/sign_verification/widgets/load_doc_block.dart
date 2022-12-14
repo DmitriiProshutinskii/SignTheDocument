@@ -7,6 +7,7 @@ import 'package:sber_sign_test/styles/typography.dart';
 
 class LoadDocWidget extends StatelessWidget {
   final int index;
+  final double? width;
   final SberCounterState state;
   final Future Function() onPressed;
   final String title;
@@ -15,22 +16,24 @@ class LoadDocWidget extends StatelessWidget {
   final SberIcon buttonIcon;
   final SberIcon docIcon;
   final String? docTitle;
-  const LoadDocWidget(
-      {super.key,
-      required this.index,
-      required this.state,
-      required this.onPressed,
-      required this.title,
-      required this.description,
-      required this.buttonText,
-      required this.buttonIcon,
-      this.docTitle,
-      required this.docIcon});
+  const LoadDocWidget({
+    super.key,
+    required this.index,
+    required this.state,
+    required this.onPressed,
+    required this.title,
+    required this.description,
+    required this.buttonText,
+    required this.buttonIcon,
+    this.docTitle,
+    required this.docIcon,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 520,
+      width: width,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

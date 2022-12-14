@@ -37,6 +37,7 @@ class SignVerificationBlock extends StatelessWidget {
                 const SberH3Text('Проверка электронной подписи'),
                 const SizedBox(height: 24),
                 LoadDocWidget(
+                  width: 520,
                   index: 1,
                   state: fileName != null
                       ? SberCounterState.completed
@@ -55,6 +56,7 @@ class SignVerificationBlock extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 LoadDocWidget(
+                  width: 520,
                   index: 2,
                   state: signName != null
                       ? SberCounterState.completed
