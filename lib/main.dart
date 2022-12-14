@@ -29,6 +29,7 @@ void main() {
         return MaterialPageRoute(builder: (context) => const ErrorBasePage());
       },
       scaffoldMessengerKey: SnackBarState.snackbarKey,
+      defaultTransition: Transition.noTransition,
       getPages: getPages,
     ),
   );

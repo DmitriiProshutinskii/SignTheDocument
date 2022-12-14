@@ -24,7 +24,7 @@ class ErrorController extends GetxController {
   }
 
   Future<void> backToMain() async {
-    Get.offAll(Routes.initial);
+    Get.offAllNamed(Routes.initial);
   }
 }
 
