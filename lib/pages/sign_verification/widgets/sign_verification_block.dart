@@ -12,16 +12,17 @@ class SignVerificationBlock extends StatelessWidget {
   final Future<void> Function() pickSignature;
   final String? fileName;
   final String? signName;
-  final bool isSendButtonEnable;
+
   final Future<void> Function() verifySignature;
+  final double? width;
   const SignVerificationBlock({
     super.key,
     required this.pickDocument,
     required this.pickSignature,
     this.fileName,
     this.signName,
-    required this.isSendButtonEnable,
     required this.verifySignature,
+    this.width,
   });
 
   @override
@@ -37,7 +38,7 @@ class SignVerificationBlock extends StatelessWidget {
                 const SberH3Text('Проверка электронной подписи'),
                 const SizedBox(height: 24),
                 LoadDocWidget(
-                  width: 520,
+                  width: width,
                   index: 1,
                   state: fileName != null
                       ? SberCounterState.completed
@@ -56,7 +57,7 @@ class SignVerificationBlock extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 LoadDocWidget(
-                  width: 520,
+                  width: width,
                   index: 2,
                   state: signName != null
                       ? SberCounterState.completed
@@ -81,7 +82,7 @@ class SignVerificationBlock extends StatelessWidget {
             width: 480,
             child: SberPrimaryButtonLarge(
               padding: EdgeInsets.zero,
-              isEnabled: isSendButtonEnable,
+              isEnabled: signName != null && fileName != null,
               text: 'Проверить подпись',
               onPressed: verifySignature,
             ),

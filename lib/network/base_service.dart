@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:sber_sign_test/configs/app_config.dart';
 import 'package:sber_sign_test/configs/routes.dart';
@@ -82,11 +82,14 @@ class BaseService {
     SnackBarState.showErrorSnackbar(title, message);
   }
 
-  Future<Response> uploadFile(String path, PlatformFile file, PlatformFile sign,
+  Future<Response> uploadFile(String path, Uint8List firstFileBytes,
+      String firstFileName, Uint8List secondFileBytes, String secondFileName,
       {Function(int, int)? onSendProgress}) async {
     final formData = FormData.fromMap({
-      'file_1': MultipartFile.fromBytes(file.bytes!, filename: file.name),
-      'file_2': MultipartFile.fromBytes(sign.bytes!, filename: sign.name)
+      'file_1':
+          MultipartFile.fromBytes(firstFileBytes, filename: firstFileName),
+      'file_2':
+          MultipartFile.fromBytes(secondFileBytes, filename: secondFileName)
     });
     final response = await createDio(methodName: "POST")
         .post(path, data: formData, onSendProgress: onSendProgress);

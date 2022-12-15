@@ -17,10 +17,6 @@ class SignVerificationController extends G.GetxController {
   bool _isLoading = false;
   bool _userAborted = false;
 
-  bool _isSendButtonEnale = false;
-  bool get isSendButtonEnable => _isSendButtonEnale;
-
-  bool? isVerifided;
   SberResponse _response = SberResponse();
   SberResponse get response => _response;
 
@@ -54,7 +50,6 @@ class SignVerificationController extends G.GetxController {
     fileName = _docPaths?.name.toString();
     _userAborted = _docPaths == null;
 
-    _isSendButtonEnale = _docPaths != null && _signPaths != null;
     update();
   }
 
@@ -86,7 +81,6 @@ class SignVerificationController extends G.GetxController {
     signName = _signPaths?.name.toString();
     _userAborted = _signPaths == null;
 
-    _isSendButtonEnale = _docPaths != null && _signPaths != null;
     update();
   }
 
@@ -97,7 +91,6 @@ class SignVerificationController extends G.GetxController {
             await SignVerificationService.verifySign(_docPaths!, _signPaths!);
         log((res != null).toString());
         if (res != null) {
-          isVerifided = res.success;
           _response = res;
           update();
         }

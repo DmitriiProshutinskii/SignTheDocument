@@ -6,8 +6,13 @@ class SignVerificationService {
   static Future<SberResponse?> verifySign(
       PlatformFile file, PlatformFile sign) async {
     final service = BaseService();
-    final result =
-        await service.uploadFile('public/verify/signature', file, sign);
+    final result = await service.uploadFile(
+      'public/verify/signature',
+      file.bytes!,
+      file.name,
+      sign.bytes!,
+      sign.name,
+    );
     if (result.statusCode == 200) {
       return SberResponse.fromJson(result.data);
     }

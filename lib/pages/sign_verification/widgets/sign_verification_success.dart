@@ -7,8 +7,9 @@ import '../../../components/sber_verification_info.dart';
 
 class SignVerificationSuccess extends StatelessWidget {
   final SberResponse response;
+  final double? width;
   final ScrollController controller = ScrollController();
-  SignVerificationSuccess({super.key, required this.response});
+  SignVerificationSuccess({super.key, required this.response, this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class SignVerificationSuccess extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 32, bottom: 40),
       child: SizedBox(
-        width: 520,
+        width: width,
         child: SberContainer(
           child: Column(
             mainAxisSize: MainAxisSize.min,

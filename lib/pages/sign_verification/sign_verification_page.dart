@@ -23,34 +23,13 @@ class SignVerificationPage extends GetView<SignVerificationController> {
           children: <Widget>[
             GetBuilder<SignVerificationController>(
               builder: (SignVerificationController controller) {
-                // return SignVerificationBody(
-                //   isVerifided: controller.isVerifided,
-                //   response: controller.response,
-                //   fileName: controller.fileName,
-                //   signName: controller.signName,
-                //   verifySignature: controller.verifySignature,
-                //   pickDocument: controller.pickDocument,
-                //   pickSignature: controller.pickSignature,
-                //   isSendButtonEnable: controller.isSendButtonEnable,
-                // );
-
-                if (controller.isVerifided ?? false) {
-                  return SignVerificationSuccess(
-                    response: controller.response,
-                  );
-                }
-                if (!(controller.isVerifided ?? true)) {
-                  return SignVerificationFail(
-                    response: controller.response,
-                  );
-                }
-                return SignVerificationBlock(
+                return SignVerificationBody(
+                  response: controller.response,
                   fileName: controller.fileName,
                   signName: controller.signName,
                   verifySignature: controller.verifySignature,
                   pickDocument: controller.pickDocument,
                   pickSignature: controller.pickSignature,
-                  isSendButtonEnable: controller.isSendButtonEnable,
                 );
               },
             ),
@@ -62,44 +41,44 @@ class SignVerificationPage extends GetView<SignVerificationController> {
 }
 
 class SignVerificationBody extends StatelessWidget {
-  final bool? isVerifided;
   final SberResponse response;
   final String? fileName;
   final String? signName;
   final Future<void> Function() verifySignature;
   final Future<void> Function() pickDocument;
   final Future<void> Function() pickSignature;
-  final bool isSendButtonEnable;
-  const SignVerificationBody(
-      {super.key,
-      required this.isVerifided,
-      required this.response,
-      required this.fileName,
-      required this.signName,
-      required this.verifySignature,
-      required this.pickDocument,
-      required this.pickSignature,
-      required this.isSendButtonEnable});
+
+  const SignVerificationBody({
+    super.key,
+    required this.response,
+    required this.fileName,
+    required this.signName,
+    required this.verifySignature,
+    required this.pickDocument,
+    required this.pickSignature,
+  });
 
   @override
   Widget build(BuildContext context) {
-    if (isVerifided ?? false) {
+    if (response.success ?? false) {
       return SignVerificationSuccess(
+        width: Get.testMode ? null : 520,
         response: response,
       );
     }
-    if (!(isVerifided ?? true)) {
+    if (!(response.success ?? true)) {
       return SignVerificationFail(
+        width: Get.testMode ? null : 520,
         response: response,
       );
     }
     return SignVerificationBlock(
+      width: Get.testMode ? null : 520,
       fileName: fileName,
       signName: signName,
       verifySignature: verifySignature,
       pickDocument: pickDocument,
       pickSignature: pickSignature,
-      isSendButtonEnable: isSendButtonEnable,
     );
   }
 }

@@ -6,15 +6,16 @@ import 'package:sber_sign_test/styles/typography.dart';
 
 class SignVerificationFail extends StatelessWidget {
   final SberResponse response;
+  final double? width;
   final ScrollController controller = ScrollController();
-  SignVerificationFail({super.key, required this.response});
+  SignVerificationFail({super.key, required this.response, this.width});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 32, bottom: 40),
       child: SizedBox(
-        width: 520,
+        width: width,
         child: SberContainer(
           child: Column(
             mainAxisSize: MainAxisSize.min,
